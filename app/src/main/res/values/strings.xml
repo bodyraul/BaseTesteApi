@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TestAPI</string>
+    <string name="rechercher">Tappez le nom d\'un personnage de Star Wars</string>
+    <string name="button">valider</string>
+    <string name="nom">nom:</string>
+    <string name="poids">poids:</string>
+    <string name="taille">taille:</string>
+    <string name="sexe">sexe:</string>
+</resources>
