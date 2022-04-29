@@ -32,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn1;
     EditText ecrire;
     TextView afficherNom,afficherSexe,afficherPoids,afficherTaille;
-    JSONObject json = null,json3=null;
-    JSONArray json2 = null;
+
 
 
 
@@ -49,82 +48,30 @@ public class MainActivity extends AppCompatActivity {
         afficherSexe = findViewById(R.id.textViewSexe);
         afficherTaille = findViewById(R.id.textViewTaille);
 
-        ecrire.setText("");
-        try {
-            modifierTexte(json3,1);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                try {
-                    modifierTexte(json3, 0);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String url = "https://swapi.dev/api/people/?search="+ecrire.getText().toString();
-
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-
-                                try {
-                                    json = new JSONObject(response);
-                                    json2 = json.getJSONArray("results");
-                                    json3 = json2.getJSONObject(0);
-
-                                    /*p1.setName(json.getString("name"));*/
-                                    modifierTexte(json3,1);
-                                } catch (JSONException e) {
-                                    Toast.makeText(MainActivity.this,"non" , Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-                        }, new Response.ErrorListener() {
+                WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+                weatherDataService.getCityID(ecrire.getText().toString(), new WeatherDataService.VolleyResponseListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "pas de données", Toast.LENGTH_SHORT).show();
+                    public void onError(String message) {
+                        makeText(MainActivity.this, "NON", LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String cityID) {
+                        makeText(MainActivity.this, cityID, LENGTH_SHORT).show();
                     }
                 });
-                MySingleton.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
-
 
             }
         });
 
 
-    }
-
-    public void modifierTexte(JSONObject jsonObject, int a) throws JSONException {
-        if(jsonObject == null){
-            afficherNom.setText("");
-            afficherSexe.setText("");
-            afficherTaille.setText("");
-            afficherPoids.setText("");
-        }else{
-            afficherNom.setText("Nom : "+jsonObject.getString("name"));
-            afficherSexe.setText("Nom : "+jsonObject.getString("gender"));
-            afficherTaille.setText("Taille : "+json3.getString("height")+" Cm");
-            afficherPoids.setText("Poids : "+json3.getString("mass")+" Kg");
-        }
-
-
-        if (a==0){
-            afficherNom.setVisibility(View.INVISIBLE);
-            afficherSexe.setVisibility(View.INVISIBLE);
-            afficherPoids.setVisibility(View.INVISIBLE);
-            afficherTaille.setVisibility(View.INVISIBLE);
-        }else{
-            afficherNom.setVisibility(View.VISIBLE);
-            afficherSexe.setVisibility(View.VISIBLE);
-            afficherPoids.setVisibility(View.VISIBLE);
-            afficherTaille.setVisibility(View.VISIBLE);
-        }
     }
 
 }
