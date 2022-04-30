@@ -1,6 +1,5 @@
 package com.example.testapi;
 
-import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
 import android.content.Context;
@@ -9,18 +8,16 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class WeatherDataService {
 
-    public static final String QUERY_FOR_CITY_ID="https://www.metaweather.com//api/location/search/?query=";
+    public static final String QUERY_INFORMATION_PERSONNAGE="https://swapi.dev/api/people/?search=";
 
     Context context;
-    String cityID="";
+    String detailPersonnage ="";
 
     public WeatherDataService(Context context) {
         this.context = context;
@@ -29,25 +26,24 @@ public class WeatherDataService {
     public interface VolleyResponseListener{
         void onError(String message);
 
-        void onResponse(String cityID);
+        void onResponse(String NomPersonnage) throws JSONException;
     }
 
-    public void getCityID(String city,VolleyResponseListener volleyResponseListener){
-        String url = QUERY_FOR_CITY_ID+city;
+    public void getCityID(String NomPersonnage,VolleyResponseListener volleyResponseListener){
+        String url = QUERY_INFORMATION_PERSONNAGE+NomPersonnage;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url,null,
-                new Response.Listener<JSONArray>() {
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-
+                    public void onResponse(String response) {
+                        detailPersonnage =response;
                         try {
-                            JSONObject cityInfo= response.getJSONObject(0);
-                            cityID= cityInfo.getString("woeid");
-                        }catch (JSONException E){
-                            E.printStackTrace();
+                            volleyResponseListener.onResponse(detailPersonnage);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            makeText(context, "Le personnage n'existe pas ou est mal saisis", Toast.LENGTH_SHORT).show();
                         }
-                       //makeText(context, cityID, LENGTH_SHORT).show();
-                        volleyResponseListener.onResponse(cityID);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -57,6 +53,7 @@ public class WeatherDataService {
             }
         });
         MySingleton.getInstance(context).addToRequestQueue(request);
+
 
     }
 }

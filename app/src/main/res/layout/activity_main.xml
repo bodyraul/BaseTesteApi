@@ -49,6 +49,23 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEcrire">
 
         <TextView
+            android:id="@+id/textViewEspece"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:paddingStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="10dp"
+            android:text="@string/espece"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textViewNom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +77,8 @@
             android:paddingTop="10dp"
             android:paddingEnd="0dp"
             android:paddingBottom="10dp"
-            android:text="@string/nom" />
+            android:text="@string/nom"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewSexe"
@@ -74,7 +92,8 @@
             android:paddingTop="10dp"
             android:paddingEnd="0dp"
             android:paddingBottom="10dp"
-            android:text="@string/sexe" />
+            android:text="@string/sexe"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewPoids"
@@ -88,7 +107,8 @@
             android:paddingTop="10dp"
             android:paddingEnd="0dp"
             android:paddingBottom="10dp"
-            android:text="@string/poids" />
+            android:text="@string/poids"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewTaille"
@@ -102,7 +122,8 @@
             android:paddingTop="10dp"
             android:paddingEnd="0dp"
             android:paddingBottom="10dp"
-            android:text="@string/taille" />
+            android:text="@string/taille"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

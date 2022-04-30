@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Sith">#FFF44336</color>
+    <color name="JediSabreBleu">#247CDA</color>
+    <color name="JediSabreVert">#FF46DA24</color>
+    <color name="JediSabreViolet">#FF7924DA</color>
+    <color name="droide">#D5E1D94F</color>
+    <color name="humain">#66DA24BC</color>
+    <color name="AutreESpeces">#FF504C48</color>
+
 </resources>
